@@ -106,7 +106,7 @@
         }
         .prob-text {
             display: inline-block;
-            min-width: 50px;
+            min-width: 42px;
             text-align: right;
             font-weight: bold;
         }
@@ -409,9 +409,9 @@
                 resultElement.innerHTML  = `<span class="chance-text">Chance of fewer than ${numCards} ${cardType}${cardPlural} in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(Math.abs(lessThanProbability) * 100).toFixed(2)}%</span><br>`;
                 resultElement.innerHTML += `<span class="chance-text">Chance of more than ${numCards} ${cardType}${cardPlural} in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(Math.abs(moreThanProbability) * 100).toFixed(2)}%</span><br><br>`;
                 if (numCards > 0) {
-                    resultElement.innerHTML += `<span class="chance-text">Expected number of packs for ${numCards} ${cardType} ${item}${cardPlural}:</span> <span class="prob-text">${(numCards/expCardsPerPack).toFixed(1)}</span><br>`;
+                    resultElement.innerHTML += `<span class="chance-text">Expected num packs for ${numCards} ${cardType} ${item}${cardPlural}:</span> <span class="prob-text">${(numCards/expCardsPerPack).toFixed(1)}</span><br>`;
                 }
-                resultElement.innerHTML += `<span class="chance-text">Expected number of ${cardType} ${item}s in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(packsOpened*expCardsPerPack).toFixed(1)}</span><br><br>`;
+                resultElement.innerHTML += `<span class="chance-text">Expected num ${cardType} ${item}s in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(packsOpened*expCardsPerPack).toFixed(1)}</span><br><br>`;
                 resultElement.innerHTML += `Your ${cardType} ${item} luck is ${flavorText}<br>`;
             }
             // Add this line to show the result

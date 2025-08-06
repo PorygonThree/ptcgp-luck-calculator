@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Calculate your luck in Pokémon TCG Pocket!">
     <title>Pokémon TCG Pocket Luck Calculator</title>
-    
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,6 +19,7 @@
             background-repeat: repeat;
             background-size: 10%;
         }
+
         .container {
             width: 100%;
             max-width: 800px;
@@ -27,14 +29,17 @@
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             font-size: 1.5rem;
             margin: 10px 0;
         }
+
         .section {
             margin-bottom: 15px;
         }
+
         .label {
             font-weight: 700;
             margin-bottom: 15px;
@@ -42,20 +47,24 @@
             font-size: 0.8rem;
             text-align: center;
         }
+
         .input-group {
             display: flex;
             align-items: center;
             gap: 10px;
             flex: 1;
         }
+
         .prompt {
             min-width: 200px;
         }
+
         .sublabel {
             font-weight: 450;
             font-size: 0.8rem;
             min-width: 120px;
         }
+
         .input-group input {
             padding: 8px;
             font-size: 13px;
@@ -63,6 +72,7 @@
             min-width: 80px;
             box-sizing: border-box;
         }
+
         .button {
             padding: 8px 15px;
             font-size: 14px;
@@ -74,9 +84,11 @@
             border-radius: 5px;
             white-space: nowrap;
         }
+
         .button:hover {
             background-color: #66abbd;
         }
+
         .help-button {
             padding: 6px 8px;
             background-color: #f0f0f0;
@@ -87,9 +99,11 @@
             min-width: 24px;
             text-align: center;
         }
+
         .help-button:hover {
             background-color: #e0e0e0;
         }
+
         .result {
             margin-top: 5px;
             padding: 10px;
@@ -101,33 +115,40 @@
             background-color: #f9f9f9;
             display: none;
         }
+
         .bold-text {
             font-weight: bold;
         }
+
         .prob-text {
             display: inline-block;
             min-width: 42px;
             text-align: right;
             font-weight: bold;
         }
+
         .chance-text {
             display: inline-block;
             min-width: 250px;
             text-align: left;
         }
+
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
+
         input[type="number"] {
             -moz-appearance: textfield;
+            appearance: textfield;
         }
-        
+
         @media (max-width: 600px) {
             .input-group {
                 width: 100%;
             }
+
             .prompt {
                 flex: 1;
                 min-width: 0;
@@ -135,22 +156,29 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
             .input-group input {
                 flex: 0 0 120px;
                 width: auto;
             }
+
             .sublabel {
                 min-width: 100px;
                 font-size: 0.8rem;
-                text-align: center; /* Add this to center text */
-                display: block; /* Ensures centering works */
+                text-align: center;
+                /* Add this to center text */
+                display: block;
+                /* Ensures centering works */
             }
+
             .input-group input {
                 width: 70px;
                 min-width: 70px;
                 padding: 6px;
             }
-            .button, .help-button {
+
+            .button,
+            .help-button {
                 padding: 6px 8px;
                 font-size: 11px;
             }
@@ -160,9 +188,12 @@
             .sublabel {
                 min-width: 80px;
                 font-size: 0.75rem;
-                text-align: center; /* Also center in smaller screens */
-                display: block; /* Ensures centering works */
+                text-align: center;
+                /* Also center in smaller screens */
+                display: block;
+                /* Ensures centering works */
             }
+
             .input-group input {
                 width: 60px;
                 min-width: 60px;
@@ -170,6 +201,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Pokémon TCG Pocket Luck Calculator</h1>
@@ -178,54 +210,68 @@
                 Enter the number of cards you have pulled
                 <br>(Exclude cards from wonder picks or pack points)
                 <button class="help-button" onclick="scrollToHelp()">❓</button>
-                <br/>
+                <br />
             </label>
             <div class="input-group">
                 <label class="prompt">Number of 👑 cards: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
-                <input type="number" id="crCards" placeholder="Enter value..." min="0" max="1000"/>
+                <input type="number" id="crCards" placeholder="Enter value..." min="0" step="1" max="1000" />
             </div>
             <div id="crResult" class="result"></div>
         </div>
         <div class="section">
             <div class="input-group">
+                <label class="prompt">Number of ✨✨ cards:</label>
+                <input type="number" id="shCards" placeholder="Enter value..." min="0" step="1" max="1000" />
+            </div>
+            <div id="shResult" class="result"></div>
+        </div>
+        <div class="section">
+            <div class="input-group">
+                <label class="prompt">Number of ✨ cards:</label>
+                <input type="number" id="bhCards" placeholder="Enter value..." min="0" step="1" max="1000" />
+            </div>
+            <div id="bhResult" class="result"></div>
+        </div>
+        <div class="section">
+            <div class="input-group">
                 <label class="prompt">Number of ⭐⭐⭐ cards:</label>
-                <input type="number" id="3sCards" placeholder="Enter value..." min="0" max="1000"/>
+                <input type="number" id="3sCards" placeholder="Enter value..." min="0" step="1" max="1000" />
             </div>
             <div id="3sResult" class="result"></div>
         </div>
         <div class="section">
             <div class="input-group">
                 <label class="prompt">Number of ⭐⭐ cards: &nbsp; &nbsp; </label>
-                <input type="number" id="2sCards" placeholder="Enter value..." min="0" max="1000"/>
+                <input type="number" id="2sCards" placeholder="Enter value..." min="0" step="1" max="1000" />
             </div>
             <div id="2sResult" class="result"></div>
         </div>
         <div class="section">
             <div class="input-group">
                 <label class="prompt">Number of ⭐ cards: &nbsp; &nbsp; &nbsp; &nbsp;</label>
-                <input type="number" id="1sCards" placeholder="Enter value..." min="0" max="1000"/>
+                <input type="number" id="1sCards" placeholder="Enter value..." min="0" step="1" max="1000" />
             </div>
             <div id="1sResult" class="result"></div>
         </div>
         <div class="section">
             <div class="input-group">
                 <label class="prompt">Number of ♦♦♦♦ cards: &nbsp; &nbsp; &nbsp;</label>
-                <input type="number" id="4dCards" placeholder="Enter value..." min="0" max="1000"/>
+                <input type="number" id="4dCards" placeholder="Enter value..." min="0" step="1" max="1000" />
             </div>
             <div id="4dResult" class="result"></div>
         </div>
         <div class="section">
             <div class="input-group">
                 <label class="prompt">Rare ("god") packs: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label>
-                <input type="number" id="rareCards" placeholder="Enter value..." min="0" max="100"/>
+                <input type="number" id="rareCards" placeholder="Enter value..." min="0" step="1" max="100" />
             </div>
             <div id="rareResult" class="result"></div>
         </div>
         <div class="section">
-            <label class="label">Enter the number of packs you have opened<br/><br/></label>
+            <label class="label">Enter the number of packs you have opened<br /><br /></label>
             <div class="input-group">
                 <label class="sublabel">Number of packs:</label>
-                <input type="number" id="packsOpened" placeholder="Enter value..." min="0" max="10000"/>
+                <input type="number" id="packsOpened" placeholder="Enter value..." min="0" max="10000" />
                 <button class="button" onclick="calculateAllLuck()">Submit</button>
                 <button class="help-button" onclick="scrollToHelp()">❓</button>
             </div>
@@ -236,16 +282,19 @@
                 How to Find Your Stats
                 <button class="help-button" onclick="scrollToTop()">🔝</button>
             </h1>
-            <div class="image-gallery" style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
-                <img src="images/packs.png"   alt="packs image"   style="width: 320px; height: auto;"/>
-                <label class="sublabel">Check your packs trophy to find your number of opened packs.<br>Yes, this trophy does count packs opened with hourglasses!</label>
-                <img src="images/search1.png" alt="search1 image" style="width: 320px; height: auto;"/>
+            <div class="image-gallery"
+                style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
+                <img src="images/packs.png" alt="packs image" style="width: 320px; height: auto;" />
+                <label class="sublabel">Check your packs trophy to find your number of opened packs.<br>Yes, this trophy
+                    does count packs opened with hourglasses!</label>
+                <img src="images/search1.png" alt="search1 image" style="width: 320px; height: auto;" />
                 <label class="sublabel">Use the search function to find your number of cards.</label>
-                <img src="images/search2.png" alt="search2 image" style="width: 320px; height: auto;"/>
+                <img src="images/search2.png" alt="search2 image" style="width: 320px; height: auto;" />
                 <label class="sublabel">Use the filter to select a given card rarity.</label>
-                <img src="images/search3.png" alt="search3 image" style="width: 320px; height: auto;"/>
+                <img src="images/search3.png" alt="search3 image" style="width: 320px; height: auto;" />
                 <label class="sublabel">
-                    Check the resulting count to find your number of cards of that rarity.<br>Exclude cards you received from wonder picks or pack points.
+                    Check the resulting count to find your number of cards of that rarity.<br>Exclude cards you received
+                    from wonder picks or pack points.
                     <button class="help-button" onclick="scrollToTop()">🔝</button>
                 </label>
             </div>
@@ -253,16 +302,16 @@
     </div>
     <script>
         // For Testing Purposes Only set default input values
-            // function setDefaultValues() {
-            //     document.getElementById('crCards').value = '1';
-            //     document.getElementById('3sCards').value = '5';
-            //     document.getElementById('2sCards').value = '7';
-            //     document.getElementById('1sCards').value = '47';
-            //     document.getElementById('4dCards').value = '26';
-            //     document.getElementById('rareCards').value = '0';
-            //     document.getElementById('packsOpened').value = '306';
-            // }
-            // window.onload = setDefaultValues;
+        // function setDefaultValues() {
+        //     document.getElementById('crCards').value = '1';
+        //     document.getElementById('3sCards').value = '5';
+        //     document.getElementById('2sCards').value = '7';
+        //     document.getElementById('1sCards').value = '47';
+        //     document.getElementById('4dCards').value = '26';
+        //     document.getElementById('rareCards').value = '0';
+        //     document.getElementById('packsOpened').value = '306';
+        // }
+        // window.onload = setDefaultValues;
 
         // Added Scroll buttons
         function scrollToHelp() {
@@ -286,6 +335,8 @@
                 return;
             }
             calculateLuck(packsOpened, 'crown');
+            calculateLuck(packsOpened, 'full shiny');
+            calculateLuck(packsOpened, 'baby shiny');
             calculateLuck(packsOpened, 'three star');
             calculateLuck(packsOpened, 'two star');
             calculateLuck(packsOpened, 'one star');
@@ -296,7 +347,7 @@
         function calculateLuck(packsOpened, cardType) {
             let numCardsInput, resultElement;
             // Set up pack constants:
-            const rarePackRate = 1/2000;
+            const rarePackRate = 0.050 / 100;
             const normalPackRate = 1 - rarePackRate;
             const cardsPerPack = 5;
             // Multipliers derived from relative size of each series:
@@ -305,21 +356,30 @@
             const setOneMult = 1;
             // Multipliers for number of series that use the above multipliers:
             const numSetThree = 1;
-            const numSetTwo = 1;
-            const numSetOne = 2;
+            const numSetTwo = 3;
+            const numSetOne = 5;
             // Precomputing for later averaging:
             const setAverageDivisor = (setThreeMult * numSetThree) + (setTwoMult * numSetTwo) + (setOneMult * numSetOne)
             // Set up rarities:
-            const typeKeys = {'crown':'cr', 'three star':'3s', 'two star':'2s', 'one star':'1s', 'rare':'rare', 'EX':'4d'};
+            const typeKeys = { 'crown': 'cr', 'full shiny': 'sh', 'baby shiny': 'bh', 'three star': '3s', 'two star': '2s', 'one star': '1s', 'rare': 'rare', 'EX': '4d' };
             const rarity = typeKeys[cardType];
 
             const rates = {
-                'norm' : {'4th' : {'cr':0.040/100, '3s':0.222/100, '2s': 0.500/100, '1s': 2.572/100, '4d': 1.666/100},
-                          '5th' : {'cr':0.160/100, '3s':0.888/100, '2s': 2.000/100, '1s':10.288/100, '4d': 6.664/100}},
-                'rare' : {'a1'  : {'cr':((5+5+5.263)/3)/100, '3s':((5+5+5.263)/3)/100, '2s':((50+50+47.368)/3)/100, '1s':((40+40+42.105)/3)/100, '4d': 0.000/100},
-                          'a1a' : {'cr':5.555/100, '3s':5.555/100, '2s':55.555/100, '1s':33.333/100, '4d': 0.000/100},
-                          'a2'  : {'cr':5.263/100, '3s':5.263/100, '2s':46.153/100, '1s':46.153/100, '4d': 0.000/100},
-                          'a2a' : {'cr':4.761/100, '3s':4.761/100, '2s':61.904/100, '1s':28.571/100, '4d': 0.000/100}}
+                'norm': {
+                    '4th': { 'cr': 0.040 / 100, 'sh': 0.333 / 100, 'bh': 0.714 / 100, '3s': 0.222 / 100, '2s': 0.500 / 100, '1s': 2.572 / 100, '4d': 1.666 / 100 },
+                    '5th': { 'cr': 0.160 / 100, 'sh': 1.333 / 100, 'bh': 2.857 / 100, '3s': 0.888 / 100, '2s': 2.000 / 100, '1s': 10.288 / 100, '4d': 6.664 / 100 }
+                },
+                'rare': {
+                    'a1': { 'cr': ((5 + 5 + 5.263) / 3) / 100, 'sh': 0.000 / 100, 'bh': 0.000 / 100, '3s': ((5 + 5 + 5.263) / 3) / 100, '2s': ((50 + 50 + 47.368) / 3) / 100, '1s': ((40 + 40 + 42.105) / 3) / 100, '4d': 0.000 / 100 },
+                    'a1a': { 'cr': 5.555 / 100, 'sh': 0.000 / 100, 'bh': 0.000 / 100, '3s': 5.555 / 100, '2s': 55.555 / 100, '1s': 33.333 / 100, '4d': 0.000 / 100 },
+                    'a2': { 'cr': 3.846 / 100, 'sh': 0.000 / 100, 'bh': 0.000 / 100, '3s': 3.846 / 100, '2s': 46.153 / 100, '1s': 46.153 / 100, '4d': 0.000 / 100 },
+                    'a2a': { 'cr': 4.761 / 100, 'sh': 0.000 / 100, 'bh': 0.000 / 100, '3s': 4.761 / 100, '2s': 61.904 / 100, '1s': 28.571 / 100, '4d': 0.000 / 100 },
+                    'a2b': { 'cr': 2.564 / 100, 'sh': 10.256 / 100, 'bh': 25.641 / 100, '3s': 2.564 / 100, '2s': 43.589 / 100, '1s': 15.384 / 100, '4d': 0.000 / 100 },
+                    'a3': { 'cr': 2.380 / 100, 'sh': 9.523 / 100, 'bh': 23.809 / 100, '3s': 2.380 / 100, '2s': 33.333 / 100, '1s': 28.571 / 100, '4d': 0.000 / 100 },
+                    'a3a': { 'cr': 2.941 / 100, 'sh': 11.764 / 100, 'bh': 29.411 / 100, '3s': 2.941 / 100, '2s': 35.294 / 100, '1s': 17.647 / 100, '4d': 0.000 / 100 },
+                    'a3b': { 'cr': 2.631 / 100, 'sh': 10.526 / 100, 'bh': 26.315 / 100, '3s': 2.631 / 100, '2s': 34.210 / 100, '1s': 23.684 / 100, '4d': 0.000 / 100 },
+                    'a4': { 'cr': 2.564 / 100, 'sh': 10.256 / 100, 'bh': 25.641 / 100, '3s': 2.564 / 100, '2s': 30.769 / 100, '1s': 28.205 / 100, '4d': 0.000 / 100 }
+                }
             };
 
             // Note: this makes a simplifying assumption that the user has opened
@@ -334,20 +394,31 @@
             // The a1 rare values are an average of all three packs, and the other sets (up to a2a) dont need averaged.
 
             const rate = ((cardType == 'rare') ? rarePackRate :
-                normalPackRate * (1 - (1 -  rates['norm']['4th'][rarity]) * 
-                                      (1 -  rates['norm']['5th'][rarity])) + 
-                  rarePackRate * (1 - (1 - ((rates['rare'][ 'a1'][rarity] * setThreeMult) + 
-                                            (rates['rare']['a1a'][rarity] * setOneMult) +
-                                            (rates['rare'][ 'a2'][rarity] * setTwoMult) +
-                                            (rates['rare']['a2a'][rarity] * setOneMult)) / setAverageDivisor) ** cardsPerPack));
+                normalPackRate * (1 - (1 - rates['norm']['4th'][rarity]) *
+                    (1 - rates['norm']['5th'][rarity])) +
+                rarePackRate * (1 - (1 - ((rates['rare']['a1'][rarity] * setThreeMult) +
+                    (rates['rare']['a1a'][rarity] * setOneMult) +
+                    (rates['rare']['a2'][rarity] * setTwoMult) +
+                    (rates['rare']['a2a'][rarity] * setOneMult) +
+                    (rates['rare']['a2b'][rarity] * setOneMult) +
+                    (rates['rare']['a3'][rarity] * setTwoMult) +
+                    (rates['rare']['a3a'][rarity] * setOneMult) +
+                    (rates['rare']['a3b'][rarity] * setOneMult) +
+                    (rates['rare']['a4'][rarity] * setTwoMult)) / setAverageDivisor) ** cardsPerPack));
 
             const expCardsPerPack = ((cardType == 'rare') ? rate :
-            	normalPackRate * (rates['norm']['4th'][rarity] + rates['norm']['5th'][rarity]) +
-            	  rarePackRate *(((rates['rare'][ 'a1'][rarity] * setThreeMult) + 
-                                  (rates['rare']['a1a'][rarity] * setOneMult) +
-                                  (rates['rare'][ 'a2'][rarity] * setTwoMult) +
-                                  (rates['rare']['a2a'][rarity] * setOneMult)) / setAverageDivisor) * cardsPerPack);
+                normalPackRate * (rates['norm']['4th'][rarity] + rates['norm']['5th'][rarity]) +
+                rarePackRate * (((rates['rare']['a1'][rarity] * setThreeMult) +
+                    (rates['rare']['a1a'][rarity] * setOneMult) +
+                    (rates['rare']['a2'][rarity] * setTwoMult) +
+                    (rates['rare']['a2a'][rarity] * setOneMult) +
+                    (rates['rare']['a2b'][rarity] * setOneMult) +
+                    (rates['rare']['a3'][rarity] * setTwoMult) +
+                    (rates['rare']['a3a'][rarity] * setOneMult) +
+                    (rates['rare']['a3b'][rarity] * setOneMult) +
+                    (rates['rare']['a4'][rarity] * setTwoMult)) / setAverageDivisor) * cardsPerPack);
 
+            console.log(`${rarity}Cards`)
             numCardsInput = document.getElementById(`${rarity}Cards`).value;
             resultElement = document.getElementById(`${rarity}Result`);
 
@@ -368,7 +439,7 @@
             // that error is less than the error of most users when estimating how many of their one-star cards were
             // received via wonder picks and/or how many of their one-star cards were converted into items.
 
-            if (numCards > packsOpened*5) {
+            if (numCards > packsOpened * 5) {
                 resultElement.innerHTML = 'Those values seem suspiciously unlikely. Are you sure you entered them correctly?';
             } else if (numCards > 1000) {
                 resultElement.innerHTML = 'That value is unreasonably large! How do you have over 1,000 rare cards?';
@@ -377,45 +448,45 @@
             } else {
                 const { exactProbability, lessThanProbability } = getProbabilities(packsOpened, numCards, rate);
                 const moreThanProbability = 1 - exactProbability - lessThanProbability;
-                const atLeastProbability  = 1 - lessThanProbability;
+                const atLeastProbability = 1 - lessThanProbability;
 
-                const cardPlural =    numCards > 1 ? 's' : '';
+                const cardPlural = numCards > 1 ? 's' : '';
                 const packPlural = packsOpened > 1 ? 's' : '';
                 const item = cardType == 'rare' ? 'pack' : 'card';
 
                 const goodText = ['<span class="bold-text"><em>somewhat good</span></em>.',
-                                  '<span class="bold-text"><em>good</span></em>!',
-                                  '<span class="bold-text"><em>really good</span></em>!!',
-                                  '<span class="bold-text"><em>amazing</span></em>!!!<br>Run into any Jirachi lately?'];
-                const badText  = ['<span class="bold-text"><em>somewhat bad</span></em>.',
-                                  '<span class="bold-text"><em>bad</span></em>!',
-                                  '<span class="bold-text"><em>really bad</span></em>!!',
-                                  '<span class="bold-text"><em>terrible</span></em>!!!<br>Run into any Absol lately?'];
-                const avgText =   '<span class="bold-text"><em>pretty average</span></em>.';
+                    '<span class="bold-text"><em>good</span></em>!',
+                    '<span class="bold-text"><em>really good</span></em>!!',
+                    '<span class="bold-text"><em>amazing</span></em>!!!<br>Run into any Jirachi lately?'];
+                const badText = ['<span class="bold-text"><em>somewhat bad</span></em>.',
+                    '<span class="bold-text"><em>bad</span></em>!',
+                    '<span class="bold-text"><em>really bad</span></em>!!',
+                    '<span class="bold-text"><em>terrible</span></em>!!!<br>Run into any Absol lately?'];
+                const avgText = '<span class="bold-text"><em>pretty average</span></em>.';
 
-                const thresh = [1/Math.E, 20/100, 10/100, 5/100];
-                const flavorText = (exactProbability <   thresh[0] ? 
-                                 (atLeastProbability <   thresh[3] ? goodText[3] : 
-                                  atLeastProbability <   thresh[2] ? goodText[2] :
-                                  atLeastProbability <   thresh[1] ? goodText[1] :
-                                  atLeastProbability <   thresh[0] ? goodText[0] :
-                                 (atLeastProbability < 1-thresh[0]) || (moreThanProbability < thresh[0]) ? avgText :
-                                 moreThanProbability < 1-thresh[1] ?  badText[0] :
-                                 moreThanProbability < 1-thresh[2] ?  badText[1] :
-                                 moreThanProbability < 1-thresh[3] ?  badText[2] :
-                                                                      badText[3]):
-                                                                      avgText);
+                const thresh = [1 / Math.E, 20 / 100, 10 / 100, 5 / 100];
+                const flavorText = (exactProbability < thresh[0] ?
+                    (atLeastProbability < thresh[3] ? goodText[3] :
+                        atLeastProbability < thresh[2] ? goodText[2] :
+                            atLeastProbability < thresh[1] ? goodText[1] :
+                                atLeastProbability < thresh[0] ? goodText[0] :
+                                    (atLeastProbability < 1 - thresh[0]) || (moreThanProbability < thresh[0]) ? avgText :
+                                        moreThanProbability < 1 - thresh[1] ? badText[0] :
+                                            moreThanProbability < 1 - thresh[2] ? badText[1] :
+                                                moreThanProbability < 1 - thresh[3] ? badText[2] :
+                                                    badText[3]) :
+                    avgText);
 
-                resultElement.innerHTML  = `<span class="chance-text">Chance of fewer than ${numCards} ${cardType}${cardPlural} in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(Math.abs(lessThanProbability) * 100).toFixed(2)}%</span><br>`;
+                resultElement.innerHTML = `<span class="chance-text">Chance of fewer than ${numCards} ${cardType}${cardPlural} in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(Math.abs(lessThanProbability) * 100).toFixed(2)}%</span><br>`;
                 resultElement.innerHTML += `<span class="chance-text">Chance of more than ${numCards} ${cardType}${cardPlural} in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(Math.abs(moreThanProbability) * 100).toFixed(2)}%</span><br><br>`;
                 if (numCards > 0) {
-                    resultElement.innerHTML += `<span class="chance-text">Expected num packs for ${numCards} ${cardType} ${item}${cardPlural}:</span> <span class="prob-text">${(numCards/expCardsPerPack).toFixed(1)}</span><br>`;
+                    resultElement.innerHTML += `<span class="chance-text">Expected num packs for ${numCards} ${cardType} ${item}${cardPlural}:</span> <span class="prob-text">${(numCards / expCardsPerPack).toFixed(1)}</span><br>`;
                 }
-                resultElement.innerHTML += `<span class="chance-text">Expected num ${cardType} ${item}s in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(packsOpened*expCardsPerPack).toFixed(1)}</span><br><br>`;
+                resultElement.innerHTML += `<span class="chance-text">Expected num ${cardType} ${item}s in ${packsOpened} pack${packPlural}:</span> <span class="prob-text">${(packsOpened * expCardsPerPack).toFixed(1)}</span><br><br>`;
                 resultElement.innerHTML += `Your ${cardType} ${item} luck is ${flavorText}<br>`;
             }
             // Add this line to show the result
-            resultElement.style.display = 'block'; 
+            resultElement.style.display = 'block';
         }
 
         function getProbabilities(n, k, p) {
@@ -453,4 +524,5 @@
         }
     </script>
 </body>
+
 </html>
